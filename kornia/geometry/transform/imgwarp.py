@@ -389,7 +389,7 @@ def get_rotation_matrix2d(center: torch.Tensor, angle: torch.Tensor, scale: torc
     scaling_matrix = scaling_matrix * scale.unsqueeze(dim=2).repeat(1, 1, 2)
     scaled_rotation: torch.Tensor = rotation_matrix @ scaling_matrix
     alpha: torch.Tensor = scaled_rotation[:, 0, 0]
-    beta: torch.Tensor = scaled_rotation[:, 0, 1]
+    beta: torch.Tensor = scaled_rotation[:, 1, 1]
 
     # unpack the center to x, y coordinates
     x: torch.Tensor = center[..., 0]
