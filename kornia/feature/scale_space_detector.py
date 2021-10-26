@@ -132,7 +132,9 @@ class ScaleSpaceDetector(nn.Module):
         dtype: torch.dtype = img.dtype
         from time import time
         t=time()
+        torch.cuda.synchronize()
         sp, sigmas, _ = self.scale_pyr(img)
+        torch.cuda.synchronize()
         print (f"Scale pyramid: {time() - t:.5f} sec")
 
         all_responses: List[torch.Tensor] = []
@@ -142,6 +144,7 @@ class ScaleSpaceDetector(nn.Module):
             B, CH, L, H, W = octave.size()
             # Run response function
             t=time()
+            torch.cuda.synchronize()
             if self.scale_space_response:
                 oct_resp = self.resp(octave, sigmas_oct.view(-1))
             else:
@@ -157,11 +160,14 @@ class ScaleSpaceDetector(nn.Module):
             if mask is not None:
                 oct_mask: torch.Tensor = _create_octave_mask(mask, oct_resp.shape)
                 oct_resp = oct_mask * oct_resp
+            torch.cuda.synchronize()
             print (f"Response: {time() - t:.5f} sec")
 
             # Differentiable nms
             t=time()
+            torch.cuda.synchronize()
             coord_max, response_max = self.nms(oct_resp)
+            torch.cuda.synchronize()
             print (f"NMS: {time() - t:.5f} sec")
             t=time()
             if self.minima_are_also_good:
@@ -206,6 +212,7 @@ class ScaleSpaceDetector(nn.Module):
 
             all_responses.append(resp_flat_best)
             all_lafs.append(current_lafs)
+            torch.cuda.synchronize()
             print (f"Postprocs: {time() - t:.5f} sec")
 
 

@@ -601,20 +601,27 @@ def conv_quad_interp3d(
 
     B, CH, D, H, W = input.shape
     t=time()
+    torch.cuda.synchronize()
     grid_global: torch.Tensor = create_meshgrid3d(D, H, W, False, device=input.device, dtype=input.dtype).permute(0, 4, 1, 2, 3)
+    torch.cuda.synchronize()
     print (f"Grid create time {time() -t:.5f} sec")
 
     # to determine the location we are solving system of linear equations Ax = b, where b is 1st order gradient
     # and A is Hessian matrix
     t=time()
+    torch.cuda.synchronize()
     b: torch.Tensor = spatial_gradient3d(input, order=1, mode='diff')  #
     A: torch.Tensor = spatial_gradient3d(input, order=2, mode='diff')
+    torch.cuda.synchronize()
     print (f"gradient{time() -t:.5f} sec")
     t=time()
+    torch.cuda.synchronize()
     b = b.permute(0, 1, 3, 4, 5, 2).reshape(-1, 3, 1)
     A = A.permute(0, 1, 3, 4, 5, 2).reshape(-1, 6)
+    torch.cuda.synchronize()
     print (f"permute {time() -t:.5f} sec")
     t=time()
+    torch.cuda.synchronize()
     dxx = A[..., 0]
     dyy = A[..., 1]
     dss = A[..., 2]
@@ -630,10 +637,13 @@ def conv_quad_interp3d(
         Hes += torch.rand(Hes[0].size(), device=Hes.device).abs()[None] * eps
     t=time()
     nms_mask: torch.Tensor = nms3d(input, (3, 3, 3), True)
+    torch.cuda.synchronize()
     print (f"nms3d {time() -t:.5f} sec")
     x_solved: torch.Tensor = torch.zeros_like(b)
     t=time()
+    torch.cuda.synchronize()
     x_solved_masked, _, solved_correctly = safe_solve_with_mask(b[nms_mask.view(-1)], Hes[nms_mask.view(-1)])
+    torch.cuda.synchronize()
     print (f"safe solve {time() -t:.5f} sec")
     t=time()
 
@@ -641,6 +651,7 @@ def conv_quad_interp3d(
     new_nms_mask = nms_mask.masked_scatter(nms_mask, solved_correctly)
 
     x_solved.masked_scatter_(new_nms_mask.view(-1, 1, 1), x_solved_masked[solved_correctly])
+    torch.cuda.synchronize()
     print (f"scatter {time() -t:.5f} sec")
 
     dx: torch.Tensor = -x_solved
@@ -649,6 +660,7 @@ def conv_quad_interp3d(
     t=time()
     mask1 = dx.abs().max(dim=1, keepdim=True)[0] > 0.7
     dx.masked_fill_(mask1.expand_as(dx), 0)
+    torch.cuda.synchronize()
     print (f"Ignore ones, which are far from window center {time() -t:.5f} sec")
 
     t=time()
@@ -656,12 +668,14 @@ def conv_quad_interp3d(
     y_max = input + dy.view(B, CH, D, H, W)
     if strict_maxima_bonus > 0:
         y_max += strict_maxima_bonus * new_nms_mask.to(input.dtype)
+    torch.cuda.synchronize()
     print (f"dy {time() -t:.5f} sec")
 
     t=time()
     dx_res: torch.Tensor = dx.flip(1).reshape(B, CH, D, H, W, 3).permute(0, 1, 5, 2, 3, 4)
     coords_max: torch.Tensor = grid_global.repeat(B, 1, 1, 1, 1).unsqueeze(1)
     coords_max = coords_max + dx_res
+    torch.cuda.synchronize()
     print (f"flip reshape sum {time() -t:.5f} sec")
 
     return coords_max, y_max
