@@ -215,12 +215,22 @@ class ScaleSpaceDetector(nn.Module):
             torch.cuda.synchronize()
             print (f"Postprocs: {time() - t:.5f} sec")
 
-
+        t=time()
+        torch.cuda.synchronize()
         # Sort and keep best n
         responses: torch.Tensor = torch.cat(all_responses, dim=1)
         lafs: torch.Tensor = torch.cat(all_lafs, dim=1)
+        print (f"Cat time: {time() - t:.5f} sec")
+        t=time()
+        torch.cuda.synchronize()
+
         responses, idxs = torch.topk(responses, k=num_feats, dim=1)
+        print (f"topk time: {time() - t:.5f} sec")
+        t=time()
+        torch.cuda.synchronize()
         lafs = torch.gather(lafs, 1, idxs.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, 2, 3))
+        print (f"gather time: {time() - t:.5f} sec")
+
         return responses, denormalize_laf(lafs, img)
 
     def forward(  # type: ignore

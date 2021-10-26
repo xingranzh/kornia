@@ -611,9 +611,12 @@ def conv_quad_interp3d(
     t=time()
     torch.cuda.synchronize()
     b: torch.Tensor = spatial_gradient3d(input, order=1, mode='diff')  #
+    torch.cuda.synchronize()
+    print (f"gradient 1st order{time() -t:.5f} sec")
+    t=time()
     A: torch.Tensor = spatial_gradient3d(input, order=2, mode='diff')
     torch.cuda.synchronize()
-    print (f"gradient{time() -t:.5f} sec")
+    print (f"gradient 2nd order{time() -t:.5f} sec")
     t=time()
     torch.cuda.synchronize()
     b = b.permute(0, 1, 3, 4, 5, 2).reshape(-1, 3, 1)
