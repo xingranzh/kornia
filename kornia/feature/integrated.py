@@ -125,7 +125,10 @@ class LocalFeature(nn.Module):
             - Local descriptors of shape :math:`(B,N,D)` where :math:`D` is descriptor size.
         """
         lafs, responses = self.detector(img, mask)
+        from time import time
+        t=time()
         descs = self.descriptor(img, lafs)
+        print (f"HardNet: {time() - t:.5f} sec")
         return (lafs, responses, descs)
 
 
@@ -261,7 +264,11 @@ class LocalFeatureMatcher(nn.Module):
         out_lafs1: List[torch.Tensor] = []
 
         for batch_idx in range(num_image_pairs):
+            from time import time
+            t=time()
             dists, idxs = self.matcher(descs0[batch_idx], descs1[batch_idx])
+            print (f"Matching: {time() - t:.5f} sec")
+
             if len(idxs) == 0:
                 continue
 

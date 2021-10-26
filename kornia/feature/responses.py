@@ -163,15 +163,13 @@ def gftt_response(
 
     det_m: torch.Tensor = dx2 * dy2 - dxy * dxy
     trace_m: torch.Tensor = dx2 + dy2
+    square_determinant: torch.Tensor = torch.sqrt((trace_m ** 2 - 4 * det_m).abs())
 
-    e1: torch.Tensor = 0.5 * (trace_m + torch.sqrt((trace_m ** 2 - 4 * det_m).abs()))
-    e2: torch.Tensor = 0.5 * (trace_m - torch.sqrt((trace_m ** 2 - 4 * det_m).abs()))
-
-    scores: torch.Tensor = torch.min(e1, e2)
+    scores: torch.Tensor = 0.5 * torch.min(trace_m + square_determinant,
+                                           trace_m - square_determinant)
 
     if sigmas is not None:
         scores = scores * sigmas.pow(4).view(-1, 1, 1, 1)
-
     return scores
 
 

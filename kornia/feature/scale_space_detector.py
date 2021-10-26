@@ -130,13 +130,18 @@ class ScaleSpaceDetector(nn.Module):
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         dev: torch.device = img.device
         dtype: torch.dtype = img.dtype
+        from time import time
+        t=time()
         sp, sigmas, _ = self.scale_pyr(img)
+        print (f"Scale pyramid: {time() - t:.5f} sec")
+
         all_responses: List[torch.Tensor] = []
         all_lafs: List[torch.Tensor] = []
         for oct_idx, octave in enumerate(sp):
             sigmas_oct = sigmas[oct_idx]
             B, CH, L, H, W = octave.size()
             # Run response function
+            t=time()
             if self.scale_space_response:
                 oct_resp = self.resp(octave, sigmas_oct.view(-1))
             else:
@@ -152,9 +157,13 @@ class ScaleSpaceDetector(nn.Module):
             if mask is not None:
                 oct_mask: torch.Tensor = _create_octave_mask(mask, oct_resp.shape)
                 oct_resp = oct_mask * oct_resp
+            print (f"Response: {time() - t:.5f} sec")
 
             # Differentiable nms
+            t=time()
             coord_max, response_max = self.nms(oct_resp)
+            print (f"NMS: {time() - t:.5f} sec")
+            t=time()
             if self.minima_are_also_good:
                 coord_min, response_min = self.nms(-oct_resp)
                 take_min_mask = (response_min > response_max).to(response_max.dtype)
@@ -197,6 +206,8 @@ class ScaleSpaceDetector(nn.Module):
 
             all_responses.append(resp_flat_best)
             all_lafs.append(current_lafs)
+            print (f"Postprocs: {time() - t:.5f} sec")
+
 
         # Sort and keep best n
         responses: torch.Tensor = torch.cat(all_responses, dim=1)
@@ -220,7 +231,15 @@ class ScaleSpaceDetector(nn.Module):
             lafs: shape [BxNx2x3]. Detected local affine frames.
             responses: shape [BxNx1]. Response function values for corresponding lafs
         """
+        from time import time
+        t=time()
         responses, lafs = self.detect(img, self.num_features, mask)
+        print("***************")
+        print (f"local feature detector total: {time() - t:.5f} sec")
+        t=time()
         lafs = self.aff(lafs, img)
+        print (f"Affine: {time() - t:.5f} sec")
+        t=time()
         lafs = self.ori(lafs, img)
+        print (f"Ori: {time() - t:.5f} sec")
         return lafs, responses
