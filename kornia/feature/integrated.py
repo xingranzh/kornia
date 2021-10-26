@@ -127,7 +127,9 @@ class LocalFeature(nn.Module):
         lafs, responses = self.detector(img, mask)
         from time import time
         t=time()
+        torch.cuda.synchronize()
         descs = self.descriptor(img, lafs)
+        torch.cuda.synchronize()
         print (f"HardNet: {time() - t:.5f} sec")
         return (lafs, responses, descs)
 
@@ -266,7 +268,9 @@ class LocalFeatureMatcher(nn.Module):
         for batch_idx in range(num_image_pairs):
             from time import time
             t=time()
+            torch.cuda.synchronize()
             dists, idxs = self.matcher(descs0[batch_idx], descs1[batch_idx])
+            torch.cuda.synchronize()
             print (f"Matching: {time() - t:.5f} sec")
 
             if len(idxs) == 0:

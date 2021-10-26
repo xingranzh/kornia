@@ -233,13 +233,19 @@ class ScaleSpaceDetector(nn.Module):
         """
         from time import time
         t=time()
+        torch.cuda.synchronize()
         responses, lafs = self.detect(img, self.num_features, mask)
+        torch.cuda.synchronize()
         print("***************")
         print (f"local feature detector total: {time() - t:.5f} sec")
         t=time()
+        torch.cuda.synchronize()
         lafs = self.aff(lafs, img)
+        torch.cuda.synchronize()
         print (f"Affine: {time() - t:.5f} sec")
         t=time()
+        torch.cuda.synchronize()
         lafs = self.ori(lafs, img)
+        torch.cuda.synchronize()
         print (f"Ori: {time() - t:.5f} sec")
         return lafs, responses
