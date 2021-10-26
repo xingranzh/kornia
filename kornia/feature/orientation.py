@@ -239,7 +239,7 @@ class LAFOrienter(nn.Module):
         patches: torch.Tensor = extract_patches_from_pyramid(img, laf, self.patch_size).view(
             -1, 1, self.patch_size, self.patch_size
         )
-        from time import time()
+        from time import time
         t=time()
         angles_radians: torch.Tensor = self.angle_detector(patches).view(B, N)
         torch.cuda.synchronize()
