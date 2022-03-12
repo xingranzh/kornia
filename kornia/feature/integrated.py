@@ -1,6 +1,6 @@
+import math
 from typing import Dict, List, Optional, Tuple
 
-import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -12,8 +12,12 @@ from kornia.geometry.transform import ScalePyramid, build_pyramid
 from .affine_shape import LAFAffNetShapeEstimator
 from .hardnet import HardNet
 from .keynet import KeyNetDetector
-from .laf import extract_patches_from_pyramid, get_laf_center, raise_error_if_laf_is_not_valid
-from .laf import laf_from_center_scale_ori
+from .laf import (
+    extract_patches_from_pyramid,
+    get_laf_center,
+    laf_from_center_scale_ori,
+    raise_error_if_laf_is_not_valid,
+)
 from .orientation import LAFOrienter, OriNet, PassLAF
 from .responses import BlobDoG, CornerGFTT
 from .scale_space_detector import ScaleSpaceDetector

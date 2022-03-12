@@ -8,13 +8,13 @@ from torch.autograd import gradcheck
 import kornia
 import kornia.testing as utils  # test utils
 from kornia.feature import (
+    DenseHardNet,
     DescriptorMatcher,
     GFTTAffNetHardNet,
-    MultiScaleDenseLocalFeature,
-    DenseHardNet,
     KeyNetHardNet,
     LAFDescriptor,
     LocalFeature,
+    MultiScaleDenseLocalFeature,
     ScaleSpaceDetector,
     SIFTDescriptor,
     SIFTFeature,

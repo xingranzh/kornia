@@ -3,7 +3,7 @@ import torch
 from torch.autograd import gradcheck
 
 import kornia.testing as utils  # test utils
-from kornia.feature import HardNet, HardNet8, DenseHardNet
+from kornia.feature import DenseHardNet, HardNet, HardNet8
 from kornia.testing import assert_close
 
 

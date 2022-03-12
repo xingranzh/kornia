@@ -175,8 +175,7 @@ class HardNet8(nn.Module):
 
 
 class DenseHardNet(HardNet):
-    """Version of the HardNet to performs dense descriptor extraction
-    """
+    """Version of the HardNet to performs dense descriptor extraction."""
     def forward(self, x):
         b, ch, h, w = x.shape
         x_ = x
