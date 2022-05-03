@@ -12,6 +12,7 @@ from .face_detection import *
 from .histogram_matching import histogram_matching, interp
 from .image_stitching import ImageStitcher
 from .lambda_module import Lambda
+from .unet import Unet
 from .vit import VisionTransformer
 from .vit_mobile import MobileViT
 
@@ -31,4 +32,5 @@ __all__ = [
     "ImageStitcher",
     "distance_transform",
     "DistanceTransform",
+    "Unet",
 ]
