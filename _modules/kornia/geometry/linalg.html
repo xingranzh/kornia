@@ -244,6 +244,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../geometry.epipolar.html">kornia.geometry.epipolar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../geometry.homography.html">kornia.geometry.homography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../geometry.linalg.html">kornia.geometry.linalg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../geometry.line.html">kornia.geometry.line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../geometry.subpix.html">kornia.geometry.subpix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../geometry.transform.html">kornia.geometry.transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../geometry.ransac.html">kornia.geometry.ransac</a></li>
@@ -320,6 +321,7 @@
     <span class="s2">"inverse_transformation"</span><span class="p">,</span>
     <span class="s2">"transform_points"</span><span class="p">,</span>
     <span class="s2">"point_line_distance"</span><span class="p">,</span>
+    <span class="s2">"squared_norm"</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -508,7 +510,7 @@
     <span class="k">return</span> <span class="n">points_0</span></div>
 
 
-<span class="k">def</span> <span class="nf">point_line_distance</span><span class="p">(</span><span class="n">point</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-9</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<div class="viewcode-block" id="point_line_distance"><a class="viewcode-back" href="../../../geometry.linalg.html#kornia.geometry.linalg.point_line_distance">[docs]</a><span class="k">def</span> <span class="nf">point_line_distance</span><span class="p">(</span><span class="n">point</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-9</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">"""Return the distance from points to lines.</span>
 
 <span class="sd">    Args:</span>
@@ -531,7 +533,12 @@
     <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">point</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">point</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
     <span class="n">denominator</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="p">(</span><span class="n">denominator</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="p">(</span><span class="n">denominator</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="squared_norm"><a class="viewcode-back" href="../../../geometry.linalg.html#kornia.geometry.linalg.squared_norm">[docs]</a><span class="k">def</span> <span class="nf">squared_norm</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">"""Return the squared norm of a vector."""</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 
 <span class="c1"># TODO:</span>

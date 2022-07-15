@@ -243,6 +243,7 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry.epipolar.html">kornia.geometry.epipolar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.homography.html">kornia.geometry.homography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.linalg.html">kornia.geometry.linalg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.line.html">kornia.geometry.line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.subpix.html">kornia.geometry.subpix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.transform.html">kornia.geometry.transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.ransac.html">kornia.geometry.ransac</a></li>
@@ -315,7 +316,11 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="geometry.camera.stereo.html#kornia.geometry.camera.stereo.StereoCamera.__init__">__init__() (kornia.geometry.camera.stereo.StereoCamera method)</a>
+
+        <ul>
+          <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.__init__">(kornia.geometry.line.ParametrizedLine method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -594,14 +599,14 @@
 </li>
         <li><a href="feature.html#kornia.feature.DescriptorMatcher">DescriptorMatcher (class in kornia.feature)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="geometry.boxes.html#kornia.geometry.boxes.Boxes.device">device (kornia.geometry.boxes.Boxes property)</a>
 
         <ul>
           <li><a href="geometry.boxes.html#kornia.geometry.boxes.Boxes3D.device">(kornia.geometry.boxes.Boxes3D property)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="contrib.html#kornia.contrib.diamond_square">diamond_square() (in module kornia.contrib)</a>
 </li>
         <li><a href="losses.html#kornia.losses.dice_loss">dice_loss() (in module kornia.losses)</a>
@@ -609,6 +614,12 @@
         <li><a href="losses.html#kornia.losses.DiceLoss">DiceLoss (class in kornia.losses)</a>
 </li>
         <li><a href="morphology.html#kornia.morphology.dilation">dilation() (in module kornia.morphology)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.dim">dim() (kornia.geometry.line.ParametrizedLine method)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.direction">direction (kornia.geometry.line.ParametrizedLine property)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.distance">distance() (kornia.geometry.line.ParametrizedLine method)</a>
 </li>
         <li><a href="contrib.html#kornia.contrib.distance_transform">distance_transform() (in module kornia.contrib)</a>
 </li>
@@ -701,6 +712,8 @@
         <li><a href="geometry.homography.html#kornia.geometry.homography.find_homography_dlt_iterated">find_homography_dlt_iterated() (in module kornia.geometry.homography)</a>
 </li>
         <li><a href="enhance.html#kornia.enhance.ZCAWhitening.fit">fit() (kornia.enhance.ZCAWhitening method)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.fit_line">fit_line() (in module kornia.geometry.line)</a>
 </li>
         <li><a href="losses.html#kornia.losses.focal_loss">focal_loss() (in module kornia.losses)</a>
 </li>
@@ -914,10 +927,10 @@
 </li>
         <li><a href="geometry.transform.html#kornia.geometry.transform.hflip">hflip() (in module kornia.geometry.transform)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="enhance.html#kornia.enhance.histogram">histogram() (in module kornia.enhance)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="enhance.html#kornia.enhance.histogram2d">histogram2d() (in module kornia.enhance)</a>
 </li>
         <li><a href="color.html#kornia.color.hls_to_rgb">hls_to_rgb() (in module kornia.color)</a>
@@ -935,6 +948,8 @@
         <li><a href="color.html#kornia.color.HsvToRgb">HsvToRgb (class in kornia.color)</a>
 </li>
         <li><a href="feature.html#kornia.feature.HyNet">HyNet (class in kornia.feature)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.Hyperplane">Hyperplane (class in kornia.geometry.line)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -1245,11 +1260,13 @@
 </li>
         <li><a href="utils.html#kornia.utils.one_hot">one_hot() (in module kornia.utils)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="geometry.homography.html#kornia.geometry.homography.oneway_transfer_error">oneway_transfer_error() (in module kornia.geometry.homography)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="morphology.html#kornia.morphology.opening">opening() (in module kornia.morphology)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.origin">origin (kornia.geometry.line.ParametrizedLine property)</a>
 </li>
         <li><a href="feature.html#kornia.feature.OriNet">OriNet (class in kornia.feature)</a>
 </li>
@@ -1261,6 +1278,8 @@
   <h2>P</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine">ParametrizedLine (class in kornia.geometry.line)</a>
+</li>
         <li><a href="feature.html#kornia.feature.PassLAF">PassLAF (class in kornia.feature)</a>
 </li>
         <li><a href="feature.html#kornia.feature.PatchAffineShapeEstimator">PatchAffineShapeEstimator (class in kornia.feature)</a>
@@ -1275,15 +1294,21 @@
 </li>
         <li><a href="geometry.camera.pinhole.html#kornia.geometry.camera.pinhole.pixel2cam">pixel2cam() (in module kornia.geometry.camera.pinhole)</a>
 </li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.point_at">point_at() (kornia.geometry.line.ParametrizedLine method)</a>
+</li>
+        <li><a href="geometry.linalg.html#kornia.geometry.linalg.point_line_distance">point_line_distance() (in module kornia.geometry.linalg)</a>
+</li>
         <li><a href="geometry.conversions.html#kornia.geometry.conversions.pol2cart">pol2cart() (in module kornia.geometry.conversions)</a>
 </li>
         <li><a href="enhance.html#kornia.enhance.posterize">posterize() (in module kornia.enhance)</a>
 </li>
-        <li><a href="geometry.camera.pinhole.html#kornia.geometry.camera.pinhole.PinholeCamera.project">project() (kornia.geometry.camera.pinhole.PinholeCamera method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="geometry.camera.pinhole.html#kornia.geometry.camera.pinhole.PinholeCamera.project">project() (kornia.geometry.camera.pinhole.PinholeCamera method)</a>
+</li>
         <li><a href="geometry.camera.perspective.html#kornia.geometry.camera.perspective.project_points">project_points() (in module kornia.geometry.camera.perspective)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.projection">projection() (kornia.geometry.line.ParametrizedLine method)</a>
 </li>
         <li><a href="geometry.epipolar.html#kornia.geometry.epipolar.projection_from_KRt">projection_from_KRt() (in module kornia.geometry.epipolar)</a>
 </li>
@@ -1597,10 +1622,10 @@
 </li>
         <li><a href="augmentation.module.html#kornia.augmentation.SmallestMaxSize">SmallestMaxSize (class in kornia.augmentation)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="filters.html#kornia.filters.Sobel">Sobel (class in kornia.filters)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="filters.html#kornia.filters.sobel">sobel() (in module kornia.filters)</a>
 </li>
         <li><a href="enhance.html#kornia.enhance.solarize">solarize() (in module kornia.enhance)</a>
@@ -1624,6 +1649,10 @@
         <li><a href="filters.html#kornia.filters.SpatialGradient3d">SpatialGradient3d (class in kornia.filters)</a>
 </li>
         <li><a href="geometry.subpix.html#kornia.geometry.subpix.SpatialSoftArgmax2d">SpatialSoftArgmax2d (class in kornia.geometry.subpix)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.squared_distance">squared_distance() (kornia.geometry.line.ParametrizedLine method)</a>
+</li>
+        <li><a href="geometry.linalg.html#kornia.geometry.linalg.squared_norm">squared_norm() (in module kornia.geometry.linalg)</a>
 </li>
         <li><a href="metrics.html#kornia.metrics.SSIM">SSIM (class in kornia.metrics)</a>
 </li>
@@ -1650,6 +1679,8 @@
         <li><a href="utils.html#kornia.utils.tensor_to_image">tensor_to_image() (in module kornia.utils)</a>
 </li>
         <li><a href="feature.html#kornia.feature.TFeat">TFeat (class in kornia.feature)</a>
+</li>
+        <li><a href="geometry.line.html#kornia.geometry.line.ParametrizedLine.through">through() (kornia.geometry.line.ParametrizedLine class method)</a>
 </li>
         <li><a href="geometry.calibration.html#kornia.geometry.calibration.tilt_projection">tilt_projection() (in module kornia.geometry.calibration)</a>
 </li>
@@ -1685,10 +1716,10 @@
 </li>
         <li><a href="losses.html#kornia.losses.TotalVariation">TotalVariation (class in kornia.losses)</a>
 </li>
-        <li><a href="tracking.html#kornia.tracking.HomographyTracker.track_next_frame">track_next_frame() (kornia.tracking.HomographyTracker method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="tracking.html#kornia.tracking.HomographyTracker.track_next_frame">track_next_frame() (kornia.tracking.HomographyTracker method)</a>
+</li>
         <li><a href="x.html#kornia.x.Trainer">Trainer (class in kornia.x)</a>
 </li>
         <li><a href="geometry.bbox.html#kornia.geometry.bbox.transform_bbox">transform_bbox() (in module kornia.geometry.bbox)</a>

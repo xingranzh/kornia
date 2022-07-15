@@ -13,10 +13,10 @@
             
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
-        <link rel="canonical" href="https://kornia.readthedocs.io/_modules/kornia/filters/gaussian.html" />
+        <link rel="canonical" href="https://kornia.readthedocs.io/_modules/kornia/geometry/line.html" />
 
     <link rel="shortcut icon" href="../../../_static/kornia_logo_favicon.png"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>kornia.filters.gaussian - Kornia</title>
+        <title>kornia.geometry.line - Kornia</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -307,123 +307,190 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for kornia.filters.gaussian</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+          <h1>Source code for kornia.geometry.line</h1><div class="highlight"><pre>
+<span></span><span class="c1"># kornia.geometry.line module inspired by Eigen::geometry::ParametrizedLine</span>
+<span class="c1"># https://gitlab.com/libeigen/eigen/-/blob/master/Eigen/src/Geometry/ParametrizedLine.h</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 
-<span class="kn">from</span> <span class="nn">.filter</span> <span class="kn">import</span> <span class="n">filter2d</span><span class="p">,</span> <span class="n">filter2d_separable</span>
-<span class="kn">from</span> <span class="nn">.kernels</span> <span class="kn">import</span> <span class="n">get_gaussian_kernel1d</span><span class="p">,</span> <span class="n">get_gaussian_kernel2d</span>
+<span class="kn">from</span> <span class="nn">kornia.core</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">normalize</span>
+<span class="kn">from</span> <span class="nn">kornia.geometry.linalg</span> <span class="kn">import</span> <span class="n">squared_norm</span>
+<span class="kn">from</span> <span class="nn">kornia.testing</span> <span class="kn">import</span> <span class="n">KORNIA_CHECK</span><span class="p">,</span> <span class="n">KORNIA_CHECK_IS_TENSOR</span><span class="p">,</span> <span class="n">KORNIA_CHECK_SHAPE</span>
 
-
-<div class="viewcode-block" id="gaussian_blur2d"><a class="viewcode-back" href="../../../filters.html#kornia.filters.gaussian_blur2d">[docs]</a><span class="k">def</span> <span class="nf">gaussian_blur2d</span><span class="p">(</span>
-    <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-    <span class="n">kernel_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-    <span class="n">sigma</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-    <span class="n">border_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'reflect'</span><span class="p">,</span>
-    <span class="n">separable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">"""Create an operator that blurs a tensor using a Gaussian filter.</span>
-
-<span class="sd">    .. image:: _static/img/gaussian_blur2d.png</span>
-
-<span class="sd">    The operator smooths the given tensor with a gaussian kernel by convolving</span>
-<span class="sd">    it to each channel. It supports batched operation.</span>
-
-<span class="sd">    Arguments:</span>
-<span class="sd">        input: the input tensor with shape :math:`(B,C,H,W)`.</span>
-<span class="sd">        kernel_size: the size of the kernel.</span>
-<span class="sd">        sigma: the standard deviation of the kernel.</span>
-<span class="sd">        border_type: the padding mode to be applied before convolving.</span>
-<span class="sd">          The expected modes are: ``'constant'``, ``'reflect'``,</span>
-<span class="sd">          ``'replicate'`` or ``'circular'``. Default: ``'reflect'``.</span>
-<span class="sd">        separable: run as composition of two 1d-convolutions.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        the blurred tensor with shape :math:`(B, C, H, W)`.</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">       See a working example `here &lt;https://kornia-tutorials.readthedocs.io/en/latest/</span>
-<span class="sd">       gaussian_blur.html&gt;`__.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; input = torch.rand(2, 4, 5, 5)</span>
-<span class="sd">        &gt;&gt;&gt; output = gaussian_blur2d(input, (3, 3), (1.5, 1.5))</span>
-<span class="sd">        &gt;&gt;&gt; output.shape</span>
-<span class="sd">        torch.Size([2, 4, 5, 5])</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">separable</span><span class="p">:</span>
-        <span class="n">kernel_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">get_gaussian_kernel1d</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sigma</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">kernel_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">get_gaussian_kernel1d</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sigma</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">filter2d_separable</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">kernel_x</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">kernel_y</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">border_type</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">kernel</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">get_gaussian_kernel2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">filter2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">kernel</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">border_type</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">out</span></div>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ParametrizedLine"</span><span class="p">,</span> <span class="s2">"fit_line"</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="GaussianBlur2d"><a class="viewcode-back" href="../../../filters.html#kornia.filters.GaussianBlur2d">[docs]</a><span class="k">class</span> <span class="nc">GaussianBlur2d</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">"""Create an operator that blurs a tensor using a Gaussian filter.</span>
+<span class="c1"># TODO: implement me: https://gitlab.com/libeigen/eigen/-/blob/master/Eigen/src/Geometry/Hyperplane.h</span>
+<div class="viewcode-block" id="Hyperplane"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.Hyperplane">[docs]</a><span class="k">class</span> <span class="nc">Hyperplane</span><span class="p">:</span>
+    <span class="sd">"""Not implemented yet: https://gitlab.com/libeigen/eigen/-/blob/master/Eigen/src/Geometry/Hyperplane.h."""</span>
 
-<span class="sd">    The operator smooths the given tensor with a gaussian kernel by convolving</span>
-<span class="sd">    it to each channel. It supports batched operation.</span>
+    <span class="k">pass</span></div>
 
-<span class="sd">    Arguments:</span>
-<span class="sd">        kernel_size: the size of the kernel.</span>
-<span class="sd">        sigma: the standard deviation of the kernel.</span>
-<span class="sd">        border_type: the padding mode to be applied before convolving.</span>
-<span class="sd">          The expected modes are: ``'constant'``, ``'reflect'``,</span>
-<span class="sd">          ``'replicate'`` or ``'circular'``. Default: ``'reflect'``.</span>
-<span class="sd">        separable: run as composition of two 1d-convolutions.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        the blurred tensor.</span>
+<div class="viewcode-block" id="ParametrizedLine"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine">[docs]</a><span class="k">class</span> <span class="nc">ParametrizedLine</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">"""Class that describes a parametrize line.</span>
 
-<span class="sd">    Shape:</span>
-<span class="sd">        - Input: :math:`(B, C, H, W)`</span>
-<span class="sd">        - Output: :math:`(B, C, H, W)`</span>
+<span class="sd">    A parametrized line is defined by an origin point :math:`o` and a unit</span>
+<span class="sd">    direction vector :math:`d` such that the line corresponds to the set</span>
 
-<span class="sd">    Examples::</span>
+<span class="sd">    .. math::</span>
 
-<span class="sd">        &gt;&gt;&gt; input = torch.rand(2, 4, 5, 5)</span>
-<span class="sd">        &gt;&gt;&gt; gauss = GaussianBlur2d((3, 3), (1.5, 1.5))</span>
-<span class="sd">        &gt;&gt;&gt; output = gauss(input)  # 2x4x5x5</span>
-<span class="sd">        &gt;&gt;&gt; output.shape</span>
-<span class="sd">        torch.Size([2, 4, 5, 5])</span>
+<span class="sd">        l(t) = o + t * d</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-        <span class="n">sigma</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-        <span class="n">border_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'reflect'</span><span class="p">,</span>
-        <span class="n">separable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="ParametrizedLine.__init__"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">"""Initializes a parametrized line of direction and origin.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            origin: any point on the line of any dimension.</span>
+<span class="sd">            direction: the normalized vector direction of any dimension.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; o = torch.tensor([0.0, 0.0])</span>
+<span class="sd">            &gt;&gt;&gt; d = torch.tensor([1.0, 1.0])</span>
+<span class="sd">            &gt;&gt;&gt; l = ParametrizedLine(o, d)</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">kernel_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigma</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">border_type</span> <span class="o">=</span> <span class="n">border_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">separable</span> <span class="o">=</span> <span class="n">separable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_direction</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Origin: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="se">\n</span><span class="s2">Direction: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="si">}</span><span class="s2">"</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-            <span class="o">+</span> <span class="s1">'(kernel_size='</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span>
-            <span class="o">+</span> <span class="s1">', '</span>
-            <span class="o">+</span> <span class="s1">'sigma='</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">)</span>
-            <span class="o">+</span> <span class="s1">', '</span>
-            <span class="o">+</span> <span class="s1">'border_type='</span>
-            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_type</span>
-            <span class="o">+</span> <span class="s1">'separable='</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">separable</span><span class="p">)</span>
-            <span class="o">+</span> <span class="s1">')'</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">gaussian_blur2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">border_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">separable</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield from</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">"""Return the line origin point."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">direction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">"""Return the line direction vector."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_direction</span>
+
+<div class="viewcode-block" id="ParametrizedLine.dim"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.dim">[docs]</a>    <span class="k">def</span> <span class="nf">dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">"""Return the dimension in which the line holds."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ParametrizedLine.through"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.through">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">through</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ParametrizedLine"</span><span class="p">:</span>
+        <span class="sd">"""Constructs a parametrized line going from a point :math:`p0` to :math:`p1`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            p0: tensor with first point :math:`(B, D)` where `D` is the point dimension.</span>
+<span class="sd">            p1: tensor with second point :math:`(B, D)` where `D` is the point dimension.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; p0 = torch.tensor([0.0, 0.0])</span>
+<span class="sd">            &gt;&gt;&gt; p1 = torch.tensor([1.0, 1.0])</span>
+<span class="sd">            &gt;&gt;&gt; l = ParametrizedLine.through(p0, p1)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">ParametrizedLine</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">normalize</span><span class="p">((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_hyperplane</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="n">Hyperplane</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ParametrizedLine"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Plane not implemented yet </span><span class="si">{</span><span class="n">plane</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ParametrizedLine.point_at"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.point_at">[docs]</a>    <span class="k">def</span> <span class="nf">point_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">"""The point at :math:`t` along this line.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            t: step along the line.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            tensor with the point.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; p0 = torch.tensor([0.0, 0.0])</span>
+<span class="sd">            &gt;&gt;&gt; p1 = torch.tensor([1.0, 1.0])</span>
+<span class="sd">            &gt;&gt;&gt; l = ParametrizedLine.through(p0, p1)</span>
+<span class="sd">            &gt;&gt;&gt; p2 = l.point_at(0.1)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">*</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="ParametrizedLine.projection"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.projection">[docs]</a>    <span class="k">def</span> <span class="nf">projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">"""Return the projection of a point onto the line.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            point: the point to be projected.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">@</span> <span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span></div>
+
+    <span class="c1"># TODO: improve order and speed</span>
+<div class="viewcode-block" id="ParametrizedLine.squared_distance"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.squared_distance">[docs]</a>    <span class="k">def</span> <span class="nf">squared_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">"""Return the squared distance of a point to its projection onte the line.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            point: the point to calculate the distance onto the line.</span>
+<span class="sd">        """</span>
+        <span class="n">diff</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span>
+        <span class="k">return</span> <span class="n">squared_norm</span><span class="p">(</span><span class="n">diff</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">@</span> <span class="n">diff</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span></div>
+
+    <span class="c1"># TODO: improve order and speed</span>
+<div class="viewcode-block" id="ParametrizedLine.distance"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.ParametrizedLine.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">"""Return the distance of a point to its projections onto the line.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            point: the point to calculate the distance into the line.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">squared_distance</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span></div></div>
+
+    <span class="c1"># TODO(edgar) implement the following:</span>
+    <span class="c1"># - intersection</span>
+    <span class="c1"># - intersection_parameter</span>
+    <span class="c1"># - intersection_point</span>
+
+
+<div class="viewcode-block" id="fit_line"><a class="viewcode-back" href="../../../geometry.line.html#kornia.geometry.line.fit_line">[docs]</a><span class="k">def</span> <span class="nf">fit_line</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParametrizedLine</span><span class="p">:</span>
+    <span class="sd">"""Fit a line from a set of points.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points: tensor containing a batch of sets of n-dimensional points. The  expected</span>
+<span class="sd">            shape of the tensor is :math:`(B,N,D)`.</span>
+<span class="sd">        weights: weights to use to solve the equations system. The  expected</span>
+<span class="sd">            shape of the tensor is :math:`(B,N)`.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        A tensor containing the direction of the fited line of shape :math:`(B,D)`.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; points = torch.rand(2, 10, 3)</span>
+<span class="sd">        &gt;&gt;&gt; weights = torch.ones(2, 10)</span>
+<span class="sd">        &gt;&gt;&gt; line = fit_line(points, weights)</span>
+<span class="sd">        &gt;&gt;&gt; line.direction.shape</span>
+<span class="sd">        torch.Size([2, 3])</span>
+<span class="sd">    """</span>
+    <span class="n">KORNIA_CHECK_IS_TENSOR</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="s2">"points must be a tensor"</span><span class="p">)</span>
+    <span class="n">KORNIA_CHECK_SHAPE</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="p">[</span><span class="s2">"B"</span><span class="p">,</span> <span class="s2">"N"</span><span class="p">,</span> <span class="s2">"D"</span><span class="p">])</span>
+
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">points</span> <span class="o">-</span> <span class="n">mean</span>
+
+    <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">KORNIA_CHECK_IS_TENSOR</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="s2">"weights must be a tensor"</span><span class="p">)</span>
+        <span class="n">KORNIA_CHECK_SHAPE</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="p">[</span><span class="s2">"B"</span><span class="p">])</span>
+        <span class="n">KORNIA_CHECK</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag_embed</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span>
+
+    <span class="c1"># NOTE: not optimal for 2d points, but for now works for other dimensions</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># the first left eigenvector is the direction on the fited line</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># BxD</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># BxD</span>
+
+    <span class="k">return</span> <span class="n">ParametrizedLine</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
