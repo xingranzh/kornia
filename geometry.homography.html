@@ -1,27 +1,17 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-203957082-2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            
-            gtag('config', 'UA-203957082-2');
-            
-        </script>
-    <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="kornia.geometry.linalg" href="geometry.linalg.html" /><link rel="prev" title="kornia.geometry.epipolar" href="geometry.epipolar.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="kornia.geometry.liegroup" href="geometry.liegroup.html" /><link rel="prev" title="kornia.geometry.epipolar" href="geometry.epipolar.html" />
         <link rel="canonical" href="https://kornia.readthedocs.io/geometry.homography.html" />
 
-    <link rel="shortcut icon" href="_static/kornia_logo_favicon.png"/><meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <link rel="shortcut icon" href="_static/kornia_logo_favicon.png"/><!-- Generated with Sphinx 6.2.1 and Furo 2023.05.20 -->
         <title>kornia.geometry.homography - Kornia</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/css/main.css" />
     
@@ -163,7 +153,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -181,45 +171,26 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">GET STARTED</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="get-started/introduction.html">What is Kornia ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-started/introduction.html">What is Kornia library ?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-started/highlights.html">Highlighted Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-started/about.html">About</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://kornia-tutorials.readthedocs.io/en/latest/">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-started/training.html">Training API (experimental)</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://docs.luxonis.com/en/latest/pages/tutorials/creating-custom-nn-models/#kornia">OpenCV AI Kit</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">KORNIA APPLICATIONS</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="applications/intro.html">Computer Vision Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/face_detection.html">Face Detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/image_augmentations.html">Image Augmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/image_classification.html">Image Classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/image_matching.html">Image Matching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/image_stitching.html">Image Stitching</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/image_registration.html">Image Registration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="applications/semantic_segmentation.html">Semantic segmentation</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">KORNIA MODELS</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="models/yunet.html">YuNet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/vit.html">Vision Transformer (ViT)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/vit_mobile.html">MobileViT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/loftr.html">LoFTR (matching)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/defmo.html">DeFMO (video)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/hardnet.html">Hardnet (descriptor)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/affnet.html">Affnet (detection)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-started/governance.html">Kornia AI Organization</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API REFERENCE</span></p>
 <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="augmentation.html">kornia.augmentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="augmentation.html">kornia.augmentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of kornia.augmentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="augmentation.auto.html">Automatic Augmentation Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="augmentation.base.html">Base Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="augmentation.container.html">Augmentation Containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="augmentation.module.html">Image Augmentations</a></li>
@@ -230,11 +201,12 @@
 <li class="toctree-l1"><a class="reference internal" href="enhance.html">kornia.enhance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="feature.html">kornia.feature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">kornia.filters</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="geometry.html">kornia.geometry</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="geometry.html">kornia.geometry</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of kornia.geometry</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="geometry.bbox.html">kornia.geometry.bbox</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.boxes.html">kornia.geometry.boxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.keypoints.html">kornia.geometry.keypoints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.calibration.html">kornia.geometry.calibration</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="geometry.camera.html">kornia.geometry.camera</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="geometry.camera.html">kornia.geometry.camera</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of kornia.geometry.camera</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="geometry.camera.pinhole.html">Pinhole Camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="geometry.camera.perspective.html">Perspective Camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="geometry.camera.stereo.html">Stereo Camera</a></li>
@@ -244,11 +216,17 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry.depth.html">kornia.geometry.depth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.epipolar.html">kornia.geometry.epipolar</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">kornia.geometry.homography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.liegroup.html">kornia.geometry.liegroup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.linalg.html">kornia.geometry.linalg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.line.html">kornia.geometry.line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.quaternion.html">kornia.geometry.quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.subpix.html">kornia.geometry.subpix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.transform.html">kornia.geometry.transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.ransac.html">kornia.geometry.ransac</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sensors.html">kornia.sensors</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of kornia.sensors</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="sensors.camera.html">kornia.sensors.camera</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="io.html">kornia.io</a></li>
@@ -256,8 +234,39 @@
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">kornia.metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="morphology.html">kornia.morphology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracking.html">kornia.tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">kornia.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">kornia.utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="x.html">kornia.x</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">KORNIA APPLICATIONS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="applications/intro.html">Computer Vision Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/visual_prompting.html">Visual Prompting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/face_detection.html">Face Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_augmentations.html">Image Augmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_classification.html">Image Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_matching.html">Image Matching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_stitching.html">Image Stitching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_registration.html">Image Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/image_denoising.html">Image Denoising</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/semantic_segmentation.html">Semantic segmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications/object_detection.html">Object detection</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">KORNIA MODELS</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="models/rt_detr.html">Real-Time Detection Transformer (RT-DETR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/segment_anything.html">Segment Anything (SAM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/mobile_sam.html">Faster Segment Anything (MobileSAM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/yunet.html">YuNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/vit.html">Vision Transformer (ViT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/vit_mobile.html">MobileViT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/tiny_vit.html">TinyViT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/loftr.html">LoFTR (matching)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/defmo.html">DeFMO (video)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/hardnet.html">Hardnet (descriptor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/affnet.html">Affnet (detection)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/sold2.html">SOLD2 (Line detection and matching)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models/dexined.html">Dexined (edge detection)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">SUPPORT</span></p>
 <ul>
@@ -274,7 +283,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="community/contribute.html">Contribute to Kornia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community/faqs.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="community/governance.html">Kornia Governance | Persons of interest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community/bibliography.html">Bibliography</a></li>
 </ul>
 
@@ -294,7 +302,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -302,135 +312,223 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
           <section id="kornia-geometry-homography">
-<h1>kornia.geometry.homography<a class="headerlink" href="#kornia-geometry-homography" title="Permalink to this headline">#</a></h1>
+<h1>kornia.geometry.homography<a class="headerlink" href="#kornia-geometry-homography" title="Permalink to this heading">#</a></h1>
 <p>Module with useful functionalities for homographies manipulation.</p>
 <span class="target" id="module-kornia.geometry.homography"></span><dl class="py function">
 <dt class="sig sig-object py" id="kornia.geometry.homography.find_homography_dlt">
-<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">find_homography_dlt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#find_homography_dlt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.find_homography_dlt" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">find_homography_dlt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#find_homography_dlt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.find_homography_dlt" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the homography matrix using the DLT formulation.</p>
 <p>The linear system is solved by using the Weighted Least Squares Solution for the 4 Points algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
-<li><p><strong>points2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
-<li><p><strong>weights</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>], <em>optional</em>) – Tensor containing the weights per point correspondence with a shape of <span class="math notranslate nohighlight">\((B, N)\)</span>.
+<li><p><strong>points1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
+<li><p><strong>points2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
+<li><p><strong>weights</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>], <em>optional</em>) – Tensor containing the weights per point correspondence with a shape of <span class="math notranslate nohighlight">\((B, N)\)</span>.
 Default:  <code class="code docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>solver</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – variants: svd, lu.
+Default:  <code class="code docutils literal notranslate"><span class="pre">'lu'</span></code></p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the computed homography matrix with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p>
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="kornia.geometry.homography.find_homography_dlt_iterated">
 <span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">find_homography_dlt_iterated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft_inl_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#find_homography_dlt_iterated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.find_homography_dlt_iterated" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the homography matrix using the iteratively-reweighted least squares (IRWLS).</p>
 <p>The linear system is solved by using the Reweighted Least Squares Solution for the 4 Points algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
-<li><p><strong>points2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
-<li><p><strong>weights</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Tensor containing the weights per point correspondence with a shape of <span class="math notranslate nohighlight">\((B, N)\)</span>.
+<li><p><strong>points1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
+<li><p><strong>points2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.</p></li>
+<li><p><strong>weights</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Tensor containing the weights per point correspondence with a shape of <span class="math notranslate nohighlight">\((B, N)\)</span>.
 Used for the first iteration of the IRWLS.</p></li>
-<li><p><strong>soft_inl_th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Soft inlier threshold used for weight calculation.
+<li><p><strong>soft_inl_th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Soft inlier threshold used for weight calculation.
 Default:  <code class="code docutils literal notranslate"><span class="pre">3.0</span></code></p></li>
-<li><p><strong>n_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – number of iterations.
+<li><p><strong>n_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – number of iterations.
 Default:  <code class="code docutils literal notranslate"><span class="pre">5</span></code></p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the computed homography matrix with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p>
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="py function">
-<dt class="sig sig-object py" id="kornia.geometry.homography.oneway_transfer_error">
-<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">oneway_transfer_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pts1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#oneway_transfer_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.oneway_transfer_error" title="Permalink to this definition">#</a></dt>
-<dd><p>Return transfer error in image 2 for correspondences given the homography matrix.</p>
+<dt class="sig sig-object py" id="kornia.geometry.homography.find_homography_lines_dlt">
+<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">find_homography_lines_dlt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ls1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#find_homography_lines_dlt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.find_homography_lines_dlt" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the homography matrix using the DLT formulation for line correspondences.</p>
+<p>See <span id="id1">[<a class="reference internal" href="community/bibliography.html#id30" title="Guerrero J.J. and Sagues C. From lines to homographies between uncalibrated images. In IX Spanish Symposium on Pattern Recognition and Image Analysis. 2001.">JJC01</a>]</span> for details.</p>
+<p>The linear system is solved by using the Weighted Least Squares Solution for the 4 Line correspondences algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pts1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the left images with shape
-(B, N, 2 or 3). If they are homogeneous, converted automatically.</p></li>
-<li><p><strong>pts2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the right images with shape
-(B, N, 2 or 3). If they are homogeneous, converted automatically.</p></li>
-<li><p><strong>H</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Homographies with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p></li>
-<li><p><strong>squared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – if True (default), the squared distance is returned.
-Default:  <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Small constant for safe sqrt.
-Default:  <code class="code docutils literal notranslate"><span class="pre">1e-08</span></code></p></li>
+<li><p><strong>ls1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of line segments in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2, 2)\)</span>.</p></li>
+<li><p><strong>ls2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of line segments in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2, 2)\)</span>.</p></li>
+<li><p><strong>weights</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>], <em>optional</em>) – Tensor containing the weights per point correspondence with a shape of <span class="math notranslate nohighlight">\((B, N)\)</span>.
+Default:  <code class="code docutils literal notranslate"><span class="pre">None</span></code></p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed homography matrix with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="kornia.geometry.homography.find_homography_lines_dlt_iterated">
+<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">find_homography_lines_dlt_iterated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ls1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soft_inl_th</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#find_homography_lines_dlt_iterated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.find_homography_lines_dlt_iterated" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the homography matrix using the iteratively-reweighted least squares (IRWLS) from line segments. The
+linear system is solved by using the Reweighted Least Squares Solution for the 4 line segments algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ls1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of line segments in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2, 2)\)</span>.</p></li>
+<li><p><strong>ls2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of line segments in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, N, 2, 2)\)</span>.</p></li>
+<li><p><strong>weights</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Tensor containing the weights per point correspondence with a shape of <span class="math notranslate nohighlight">\((B, N)\)</span>.
+Used for the first iteration of the IRWLS.</p></li>
+<li><p><strong>soft_inl_th</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Soft inlier threshold used for weight calculation.
+Default:  <code class="code docutils literal notranslate"><span class="pre">4.0</span></code></p></li>
+<li><p><strong>n_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – number of iterations.
+Default:  <code class="code docutils literal notranslate"><span class="pre">5</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed homography matrix with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="kornia.geometry.homography.line_segment_transfer_error_one_way">
+<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">line_segment_transfer_error_one_way</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ls1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#line_segment_transfer_error_one_way"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.line_segment_transfer_error_one_way" title="Permalink to this definition">#</a></dt>
+<dd><p>Return transfer error in image 2 for line segment correspondences given the homography matrix. Line segment
+end points are reprojected into image 2, and point-to-line error is calculted w.r.t. line, induced by line
+segment in image 2. See <span id="id2">[<a class="reference internal" href="community/bibliography.html#id30" title="Guerrero J.J. and Sagues C. From lines to homographies between uncalibrated images. In IX Spanish Symposium on Pattern Recognition and Image Analysis. 2001.">JJC01</a>]</span> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ls1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – line segment correspondences from the left images with shape
+(B, N, 2, 2).</p></li>
+<li><p><strong>ls2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – line segment correspondences from the right images with shape
+(B, N, 2, 2).</p></li>
+<li><p><strong>H</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Homographies with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p></li>
+<li><p><strong>squared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – if True (default is False), the squared distance is returned.
+Default:  <code class="code docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the computed distance with shape <span class="math notranslate nohighlight">\((B, N)\)</span>.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="kornia.geometry.homography.oneway_transfer_error">
+<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">oneway_transfer_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pts1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#oneway_transfer_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.oneway_transfer_error" title="Permalink to this definition">#</a></dt>
+<dd><p>Return transfer error in image 2 for correspondences given the homography matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pts1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the left images with shape
+(B, N, 2 or 3). If they are homogeneous, converted automatically.</p></li>
+<li><p><strong>pts2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the right images with shape
+(B, N, 2 or 3). If they are homogeneous, converted automatically.</p></li>
+<li><p><strong>H</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Homographies with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p></li>
+<li><p><strong>squared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – if True (default), the squared distance is returned.
+Default:  <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Small constant for safe sqrt.
+Default:  <code class="code docutils literal notranslate"><span class="pre">1e-8</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the computed distance with shape <span class="math notranslate nohighlight">\((B, N)\)</span>.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="kornia.geometry.homography.sample_is_valid_for_homography">
 <span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">sample_is_valid_for_homography</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#sample_is_valid_for_homography"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.sample_is_valid_for_homography" title="Permalink to this definition">#</a></dt>
-<dd><p>Function, which implements oriented constraint check from <span id="id1">[<a class="reference internal" href="community/bibliography.html#id21" title="Pablo Márquez-Neila, Javier López-Alberca, José M. Buenaposada, and Luis Baumela. Speeding-up homography estimation in mobile devices. J. Real-Time Image Process., 11(1):141–154, January 2016. URL: https://doi.org/10.1007/s11554-012-0314-1, doi:10.1007/s11554-012-0314-1.">MarquezNLopezABB16</a>]</span>.</p>
+<dd><p>Function, which implements oriented constraint check from <span id="id3">[<a class="reference internal" href="community/bibliography.html#id22" title="Pablo Márquez-Neila, Javier López-Alberca, José M. Buenaposada, and Luis Baumela. Speeding-up homography estimation in mobile devices. J. Real-Time Image Process., 11(1):141–154, January 2016. URL: https://doi.org/10.1007/s11554-012-0314-1, doi:10.1007/s11554-012-0314-1.">MarquezNLopezABB16</a>]</span>.</p>
 <p>Analogous to <a class="reference external" href="https://github.com/opencv/opencv/blob/4.x/modules/calib3d/src/usac/degeneracy.cpp#L88">https://github.com/opencv/opencv/blob/4.x/modules/calib3d/src/usac/degeneracy.cpp#L88</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>points1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, 4, 2)\)</span>.</p></li>
-<li><p><strong>points2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, 4, 2)\)</span>.</p></li>
+<li><p><strong>points1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the first image with a tensor shape <span class="math notranslate nohighlight">\((B, 4, 2)\)</span>.</p></li>
+<li><p><strong>points2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – A set of points in the second image with a tensor shape <span class="math notranslate nohighlight">\((B, 4, 2)\)</span>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Mask with the minimal sample is good for homography estimation:math:<cite>(B, 3, 3)</cite>.</p>
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="kornia.geometry.homography.symmetric_transfer_error">
-<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">symmetric_transfer_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pts1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#symmetric_transfer_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.symmetric_transfer_error" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">kornia.geometry.homography.</span></span><span class="sig-name descname"><span class="pre">symmetric_transfer_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pts1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/homography.html#symmetric_transfer_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.homography.symmetric_transfer_error" title="Permalink to this definition">#</a></dt>
 <dd><p>Return Symmetric transfer error for correspondences given the homography matrix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pts1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the left images with shape
+<li><p><strong>pts1</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the left images with shape
 (B, N, 2 or 3). If they are homogeneous, converted automatically.</p></li>
-<li><p><strong>pts2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the right images with shape
+<li><p><strong>pts2</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – correspondences from the right images with shape
 (B, N, 2 or 3). If they are homogeneous, converted automatically.</p></li>
-<li><p><strong>H</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Homographies with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p></li>
-<li><p><strong>squared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – if True (default), the squared distance is returned.
+<li><p><strong>H</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – Homographies with shape <span class="math notranslate nohighlight">\((B, 3, 3)\)</span>.</p></li>
+<li><p><strong>squared</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – if True (default), the squared distance is returned.
 Default:  <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Small constant for safe sqrt.
-Default:  <code class="code docutils literal notranslate"><span class="pre">1e-08</span></code></p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Small constant for safe sqrt.
+Default:  <code class="code docutils literal notranslate"><span class="pre">1e-8</span></code></p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the computed distance with shape <span class="math notranslate nohighlight">\((B, N)\)</span>.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<section id="interactive-demo">
+<h2>Interactive Demo<a class="headerlink" href="#interactive-demo" title="Permalink to this heading">#</a></h2>
+<gradio-app space="kornia/homography-warping"></gradio-app></section>
 </section>
 
         </article>
@@ -438,17 +536,17 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">1e-0
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="geometry.linalg.html">
+          <a class="next-page" href="geometry.liegroup.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">kornia.geometry.linalg</div>
+                <div class="title">kornia.geometry.liegroup</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="geometry.epipolar.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -470,25 +568,49 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">1e-0
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">kornia.geometry.homography</a><ul>
+<li><a class="reference internal" href="#kornia.geometry.homography.find_homography_dlt"><code class="docutils literal notranslate"><span class="pre">find_homography_dlt()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.find_homography_dlt_iterated"><code class="docutils literal notranslate"><span class="pre">find_homography_dlt_iterated()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.find_homography_lines_dlt"><code class="docutils literal notranslate"><span class="pre">find_homography_lines_dlt()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.find_homography_lines_dlt_iterated"><code class="docutils literal notranslate"><span class="pre">find_homography_lines_dlt_iterated()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.line_segment_transfer_error_one_way"><code class="docutils literal notranslate"><span class="pre">line_segment_transfer_error_one_way()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.oneway_transfer_error"><code class="docutils literal notranslate"><span class="pre">oneway_transfer_error()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.sample_is_valid_for_homography"><code class="docutils literal notranslate"><span class="pre">sample_is_valid_for_homography()</span></code></a></li>
+<li><a class="reference internal" href="#kornia.geometry.homography.symmetric_transfer_error"><code class="docutils literal notranslate"><span class="pre">symmetric_transfer_error()</span></code></a></li>
+<li><a class="reference internal" href="#interactive-demo">Interactive Demo</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
 </div>
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -498,6 +620,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">1e-0
     
     <!-- DocsQA integration start -->
     <script src="https://jina-docqa-ui.netlify.app/dist/qabot.js"></script>
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.3.1/gradio.js"></script>
     <script>
       // This prevents the global search interfere with qa-bot internal text input.
       document.addEventListener('DOMContentLoaded', () => {
